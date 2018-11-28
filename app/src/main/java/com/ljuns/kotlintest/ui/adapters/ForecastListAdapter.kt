@@ -1,4 +1,4 @@
-package com.ljuns.kotlintest
+package com.ljuns.kotlintest.ui.adapters
 
 import android.view.ViewGroup
 import android.widget.TextView

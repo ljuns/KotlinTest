@@ -1,9 +1,15 @@
-package com.ljuns.kotlintest
+package com.ljuns.kotlintest.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ljuns.kotlintest.R
+import com.ljuns.kotlintest.data.Request
+import com.ljuns.kotlintest.ui.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.async
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,5 +32,12 @@ class MainActivity : AppCompatActivity() {
         // 设置 Adapter
         forecastList.adapter = ForecastListAdapter(items)
 
+        val url = "http://api.openweathermap.org/data/2.5/forecast/daily?" +
+                "APPID=15646a06818f61f7b8d7823ca833e1ce&q=94043&mode=json&units=metric&cnt=7"
+
+        async {
+            Request(url).run()
+            uiThread { longToast("Request performed") }
+        }
     }
 }
