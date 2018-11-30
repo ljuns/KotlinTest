@@ -1,26 +1,49 @@
 package com.ljuns.kotlintest.ui.adapters
 
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.ljuns.kotlintest.R
+import com.ljuns.kotlintest.R.id.maxTemperature
+import com.ljuns.kotlintest.R.id.minTemperature
+import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.domain.model.ForecastList
+import com.squareup.picasso.Picasso
+import org.jetbrains.anko.find
 
 /**
  * @author ljuns
  * Created at 2018/11/28.
  */
-class ForecastListAdapter(private val weekForecast: ForecastList) : RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
+class ForecastListAdapter(private val weekForecast: ForecastList) :
+    RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
+
+    // OnItemClickListener? 表示 mOnItemClickListener 可为 null
+    private var mOnItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(TextView(parent.context))
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_forecast, parent, false)
+        val holder = ViewHolder(view)
+        view.setOnClickListener {
+            // mOnItemClickListener!! 表示 if(mOnItemClickListener != null) {}
+
+            mOnItemClickListener!!.onItemClick(holder.adapterPosition, weekForecast[holder.adapterPosition])
+
+            // 等同于 mOnItemClickListener!!.invoke(weekForecast[holder.adapterPosition])
+            mOnItemClickListener!!(weekForecast[holder.adapterPosition])
+        }
+
+        return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // 使用了操作符重载，weekForecast[position] 实际会调用 weekForecast.get(position)
-        with(weekForecast[position]) {
+        /*with(weekForecast[position]) {
             holder.textView.text = "$date - $description - $high/$low"
-        }
-
+        }*/
 
         // with() {} 意思是把（）里面的内容当作一个对象，然后在 {} 中使用这个对象
         /*with(weekForecast.dailyForecast[position]) {
@@ -33,9 +56,44 @@ class ForecastListAdapter(private val weekForecast: ForecastList) : RecyclerView
          * holder.textView.text = "$daily.date - $daily.description - $daily.high/$daily.low"
          * 或者使用 this 表示当前对象：holder.textView.text = "$this.date - $this.description - $this.high/$this.low"
          */
+
+        holder.bind(weekForecast[position])
     }
 
     override fun getItemCount(): Int = weekForecast.size()
 
-    class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    /**
+     * ViewHolder
+     */
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val iconView: ImageView = view.find(R.id.icon)
+        private val dateView: TextView = view.find(R.id.date)
+        private val descriptionView: TextView = view.find(R.id.description)
+        private val maxTemperatureView: TextView = view.find(R.id.maxTemperature)
+        private val minTemperatureView: TextView = view.find(R.id.minTemperature)
+
+        fun bind(forecast: Forecast) {
+            with(forecast) {
+                Picasso.get().load(iconUrl).into(iconView)
+                dateView.text = date
+                descriptionView.text = description
+                maxTemperatureView.text = maxTemperature.toString()
+                minTemperatureView.text = minTemperature.toString()
+            }
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, forecast: Forecast)
+
+        /**
+         * 方法调用的操作符重载：a(i) -> a.invoke(i)
+         */
+        operator fun invoke(forecast: Forecast)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        mOnItemClickListener = listener
+    }
+
 }
