@@ -23,17 +23,19 @@ class ForecastListAdapter(private val weekForecast: ForecastList) :
 
     // OnItemClickListener? 表示 mOnItemClickListener 可为 null
     private var mOnItemClickListener: OnItemClickListener? = null
+    private var mItemClickListener: ((Int, Forecast) -> Unit)? = null
+    private var mClickListener: ((Forecast) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_forecast, parent, false)
         val holder = ViewHolder(view)
         view.setOnClickListener {
-            // mOnItemClickListener!! 表示 if(mOnItemClickListener != null) {}
 
-            mOnItemClickListener!!.onItemClick(holder.adapterPosition, weekForecast[holder.adapterPosition])
+            mOnItemClickListener?.onItemClick(holder.adapterPosition, weekForecast[holder.adapterPosition])
 
-            // 等同于 mOnItemClickListener!!.invoke(weekForecast[holder.adapterPosition])
-            mOnItemClickListener!!(weekForecast[holder.adapterPosition])
+            // lambda
+            mClickListener?.invoke(weekForecast[holder.adapterPosition])
+            mItemClickListener?.invoke(holder.adapterPosition, weekForecast[holder.adapterPosition])
         }
 
         return holder
@@ -85,15 +87,20 @@ class ForecastListAdapter(private val weekForecast: ForecastList) :
 
     interface OnItemClickListener {
         fun onItemClick(position: Int, forecast: Forecast)
-
-        /**
-         * 方法调用的操作符重载：a(i) -> a.invoke(i)
-         */
-        operator fun invoke(forecast: Forecast)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         mOnItemClickListener = listener
+    }
+
+    /**
+     * 使用 lambda 表达式
+     */
+    fun setOnItemClickListener(listener: (Forecast) -> Unit) {
+        mClickListener = listener
+    }
+    fun setOnItemClickListener(listener: (Int, Forecast) -> Unit) {
+        mItemClickListener = listener
     }
 
 }

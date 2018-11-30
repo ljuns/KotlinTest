@@ -9,6 +9,7 @@ import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.domain.model.ForecastList
 import com.ljuns.kotlintest.ui.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_forecast.view.*
 import org.jetbrains.anko.async
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
@@ -33,16 +34,23 @@ class MainActivity : AppCompatActivity() {
                 val adapter = ForecastListAdapter(result)
                 forecastList.adapter = adapter
 
-                // 创建匿名内部类
+                /**
+                 * 以下两种方式实现 item 的点击事件
+                 */
+                // 使用匿名内部类
                 adapter.setOnItemClickListener(object : ForecastListAdapter.OnItemClickListener {
-                    override fun invoke(forecast: Forecast) {
-                        toast("date = ${forecast.date}")
-                    }
-
                     override fun onItemClick(position: Int, forecast: Forecast) {
                         toast("position = $position, date = ${forecast.date}")
                     }
                 })
+
+                // 使用 lambda 表达式
+                adapter.setOnItemClickListener {
+                        forecast -> toast("date = ${forecast.date}")
+                }
+                adapter.setOnItemClickListener {
+                        position, forecast -> toast("position = $position, date = ${forecast.date}")
+                }
             }
         }
     }
