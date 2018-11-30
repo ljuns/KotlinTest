@@ -16,10 +16,16 @@ class ForecastListAdapter(private val weekForecast: ForecastList) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // with() {} 意思是把（）里面的内容当作一个对象，然后在 {} 中使用这个对象
-        with(weekForecast.dailyForecast[position]) {
+        // 使用了操作符重载，weekForecast[position] 实际会调用 weekForecast.get(position)
+        with(weekForecast[position]) {
             holder.textView.text = "$date - $description - $high/$low"
         }
+
+
+        // with() {} 意思是把（）里面的内容当作一个对象，然后在 {} 中使用这个对象
+        /*with(weekForecast.dailyForecast[position]) {
+            holder.textView.text = "$date - $description - $high/$low"
+        }*/
 
         /**
          * 上面的 with 等同于如下：
@@ -29,7 +35,7 @@ class ForecastListAdapter(private val weekForecast: ForecastList) : RecyclerView
          */
     }
 
-    override fun getItemCount(): Int = weekForecast.dailyForecast.size
+    override fun getItemCount(): Int = weekForecast.size()
 
     class ViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 }
