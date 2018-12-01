@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ljuns.kotlintest.R
 import com.ljuns.kotlintest.domain.commands.RequestForecastCommand
 import com.ljuns.kotlintest.domain.model.Forecast
-import com.ljuns.kotlintest.domain.model.ForecastList
 import com.ljuns.kotlintest.ui.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_forecast.view.*
 import org.jetbrains.anko.async
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
+/**
+ * Created by ljuns at 2018/11/30.
+ * I am just a developer.
+ */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,11 +46,11 @@ class MainActivity : AppCompatActivity() {
                 })
 
                 // 使用 lambda 表达式
-                adapter.setOnItemClickListener {
-                        forecast -> toast("date = ${forecast.date}")
+                adapter.setOnItemClickListener { forecast ->
+                    toast("date = ${forecast.date}")
                 }
-                adapter.setOnItemClickListener {
-                        position, forecast -> toast("position = $position, date = ${forecast.date}")
+                adapter.setOnItemClickListener { position, forecast ->
+                    toast("position = $position, date = ${forecast.date}")
                 }
             }
         }

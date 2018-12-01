@@ -3,8 +3,6 @@ package com.ljuns.kotlintest.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ljuns.kotlintest.R
 import com.ljuns.kotlintest.R.id.maxTemperature
@@ -12,7 +10,7 @@ import com.ljuns.kotlintest.R.id.minTemperature
 import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.domain.model.ForecastList
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.item_forecast.view.*
 
 /**
  * @author ljuns
@@ -68,19 +66,14 @@ class ForecastListAdapter(private val weekForecast: ForecastList) :
      * ViewHolder
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val iconView: ImageView = view.find(R.id.icon)
-        private val dateView: TextView = view.find(R.id.date)
-        private val descriptionView: TextView = view.find(R.id.description)
-        private val maxTemperatureView: TextView = view.find(R.id.maxTemperature)
-        private val minTemperatureView: TextView = view.find(R.id.minTemperature)
 
         fun bind(forecast: Forecast) {
             with(forecast) {
-                Picasso.get().load(iconUrl).into(iconView)
-                dateView.text = date
-                descriptionView.text = description
-                maxTemperatureView.text = maxTemperature.toString()
-                minTemperatureView.text = minTemperature.toString()
+                Picasso.get().load(iconUrl).into(itemView.icon)
+                itemView.date.text = date
+                itemView.description.text = description
+                itemView.maxTemperature.text = maxTemperature.toString()
+                itemView.minTemperature.text = minTemperature.toString()
             }
         }
     }
@@ -99,6 +92,7 @@ class ForecastListAdapter(private val weekForecast: ForecastList) :
     fun setOnItemClickListener(listener: (Forecast) -> Unit) {
         mClickListener = listener
     }
+
     fun setOnItemClickListener(listener: (Int, Forecast) -> Unit) {
         mItemClickListener = listener
     }
