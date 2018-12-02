@@ -46,12 +46,12 @@ class MainActivity : AppCompatActivity() {
                 })
 
                 // 使用 lambda 表达式
-                adapter.setOnItemClickListener { forecast ->
+                /*adapter.setOnItemClickListener { forecast ->
                     toast("date = ${forecast.date}")
                 }
                 adapter.setOnItemClickListener { position, forecast ->
                     toast("position = $position, date = ${forecast.date}")
-                }
+                }*/
             }
         }
     }
