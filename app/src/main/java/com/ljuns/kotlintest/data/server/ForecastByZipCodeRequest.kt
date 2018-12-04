@@ -8,7 +8,7 @@ import java.net.URL
  * I am just a developer.
  */
 
-class ForecastRequest(val zipCode: String) {
+class ForecastByZipCodeRequest(val zipCode: String) {
 
     /**
      * 此处使用 companion object {} 达到静态代码块的作用

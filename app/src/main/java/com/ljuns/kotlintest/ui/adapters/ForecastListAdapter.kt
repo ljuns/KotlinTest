@@ -70,7 +70,7 @@ class ForecastListAdapter(private val weekForecast: ForecastList) :
         fun bind(forecast: Forecast) {
             with(forecast) {
                 Picasso.get().load(iconUrl).into(itemView.icon)
-                itemView.date.text = date
+                itemView.date.text = date.toString()
                 itemView.description.text = description
                 itemView.maxTemperature.text = maxTemperature.toString()
                 itemView.minTemperature.text = minTemperature.toString()

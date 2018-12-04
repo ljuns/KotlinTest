@@ -1,5 +1,6 @@
 package com.ljuns.kotlintest.data.db
 
+import com.ljuns.kotlintest.domain.datasource.ForecastDataSource
 import com.ljuns.kotlintest.domain.model.ForecastList
 import com.ljuns.kotlintest.extensions.clear
 import com.ljuns.kotlintest.extensions.parseList
@@ -15,20 +16,20 @@ import org.jetbrains.anko.db.select
  */
 
 class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance,
-                 private val dataMapper: DbDataMapper = DbDataMapper()) {
+                 private val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
 
     /**
      * 根据城市 ID 和日期查询天气
      */
     // forecastDbHelper.use {} 表示在 {} 中已经获取到了数据库操作对象 writableDatabase，可以直接进行数据库操作
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"
 
         // 获取城市对应日期的天气
         val dailyForecast = select(DayForecastTable.NAME)
             .whereSimple(dailyRequest, zipCode.toString(), date.toString())
             // 遍历查询返回的 Cursor 并转换成对应的实体集合
-            .parseList{ DayForecast(HashMap()) }
+            .parseList{ DayForecast(HashMap(it)) }
 
         // 获取城市
         val city = select(CityForecastTable.NAME)

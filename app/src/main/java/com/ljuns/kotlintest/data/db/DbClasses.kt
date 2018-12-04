@@ -1,5 +1,7 @@
 package com.ljuns.kotlintest.data.db
 
+import java.util.*
+
 /**
  * Created by ljuns at 2018/12/3.
  * I am just a developer.
@@ -26,7 +28,7 @@ class DayForecast(var map: MutableMap<String, Any?>) {
     var description: String by map
     var high: Int by map
     var low: Int by map
-    var iconurl: String by map
+    var iconUrl: String by map
     var cityId: Long by map
 
     constructor(date: Long, description: String, high: Int, low: Int, iconUrl: String, cityId: Long)
@@ -35,7 +37,7 @@ class DayForecast(var map: MutableMap<String, Any?>) {
         this.description = description
         this.high = high
         this.low = low
-        this.iconurl = iconurl
+        this.iconUrl = iconUrl
         this.cityId = cityId
     }
 }

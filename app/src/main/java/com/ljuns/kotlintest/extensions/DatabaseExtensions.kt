@@ -35,5 +35,5 @@ fun <T : Any> SelectQueryBuilder.parseOpt(parser: (Map<String, Any?>) -> T): T? 
  * 删除数据库表
  */
 fun SQLiteDatabase.clear(tableName: String) {
-    execSQL("delete form $tableName")
+    execSQL("delete from $tableName")
 }

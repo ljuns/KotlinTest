@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
          * 异步
          */
         async {
-            val result = RequestForecastCommand("94043").execute()
+            val result = RequestForecastCommand(94043).execute()
             // 切换到 UI 线程
             uiThread {
                 val adapter = ForecastListAdapter(result)
