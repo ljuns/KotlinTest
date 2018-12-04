@@ -1,7 +1,7 @@
 package com.ljuns.kotlintest.ui
 
 import android.app.Application
-import com.ljuns.kotlintest.ui.utils.NotNullSingleValueVar
+import com.ljuns.kotlintest.extensions.NotNullSingleValueVar
 
 /**
  * Created by ljuns at 2018/12/2.

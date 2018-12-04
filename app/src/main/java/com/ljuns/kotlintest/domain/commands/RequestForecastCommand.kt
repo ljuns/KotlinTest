@@ -1,6 +1,6 @@
 package com.ljuns.kotlintest.domain.commands
 
-import com.ljuns.kotlintest.data.ForecastRequest
+import com.ljuns.kotlintest.data.server.ForecastRequest
 import com.ljuns.kotlintest.domain.mappers.ForecastDataMapper
 import com.ljuns.kotlintest.domain.model.ForecastList
 

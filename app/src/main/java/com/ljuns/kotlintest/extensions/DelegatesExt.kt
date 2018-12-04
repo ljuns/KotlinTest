@@ -1,4 +1,4 @@
-package com.ljuns.kotlintest.ui.utils
+package com.ljuns.kotlintest.extensions
 
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty

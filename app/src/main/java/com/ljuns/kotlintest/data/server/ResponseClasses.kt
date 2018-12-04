@@ -1,4 +1,4 @@
-package com.ljuns.kotlintest.data
+package com.ljuns.kotlintest.data.server
 
 /**
  * @author ljuns

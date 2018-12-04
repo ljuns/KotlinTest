@@ -6,7 +6,7 @@ package com.ljuns.kotlintest.domain.model
  * 实际需要的类型
  */
 
-data class ForecastList(val city: String, val country: String, val dailyForecast: List<Forecast>) {
+data class ForecastList(val id: Long, val city: String, val country: String, val dailyForecast: List<Forecast>) {
 
     /**
      * 操作符重载 operator fun

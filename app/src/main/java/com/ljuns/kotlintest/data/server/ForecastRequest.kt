@@ -1,4 +1,4 @@
-package com.ljuns.kotlintest.data
+package com.ljuns.kotlintest.data.server
 
 import com.google.gson.Gson
 import java.net.URL

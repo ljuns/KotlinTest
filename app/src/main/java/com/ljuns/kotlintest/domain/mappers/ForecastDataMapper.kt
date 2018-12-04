@@ -1,7 +1,7 @@
 package com.ljuns.kotlintest.domain.mappers
 
-import com.ljuns.kotlintest.data.Forecast
-import com.ljuns.kotlintest.data.ForecastResult
+import com.ljuns.kotlintest.data.server.Forecast
+import com.ljuns.kotlintest.data.server.ForecastResult
 import com.ljuns.kotlintest.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
@@ -14,12 +14,12 @@ import com.ljuns.kotlintest.domain.model.Forecast as ModelForecast
  */
 
 class ForecastDataMapper {
-    fun convertFromDataModel(forecast: ForecastResult): ForecastList {
-        return ForecastList(forecast.city.name, forecast.city.country, convertForecastListToDomain(forecast.list))
+    fun convertFromDataModel(forecast: ForecastResult): ForecastList = with(forecast) {
+        ForecastList(city.id, city.name, city.country, convertForecastListToDomain(forecast.list))
     }
 
     private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
-        // list.map {} 意思是循环遍历 list，并且使用 it 表示集合的元素
+        // list.map {} 意思是循环遍历 list 并生成一个新的 list，并且使用 it 表示原集合的元素
         return list.map { convertForecastItemToDomain(it) }
     }
 
