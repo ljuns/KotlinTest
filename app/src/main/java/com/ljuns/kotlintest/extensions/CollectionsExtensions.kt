@@ -11,7 +11,7 @@ fun <K, V : Any> MutableMap<K, V?>.toVarargArray():
         Array<out Pair<K, V>> =  map { Pair(it.key, it.value!!) }.toTypedArray()
 
 /**
- * 过滤 null
+ * 首先从数据库取，取不到再去网络取
  */
 fun <T, R : Any> Iterable<T>.firstResult(predicate: (T) -> R?): R {
     for (element in this) {

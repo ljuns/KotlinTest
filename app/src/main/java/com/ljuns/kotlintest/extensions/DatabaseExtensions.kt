@@ -11,7 +11,7 @@ import org.jetbrains.anko.db.SelectQueryBuilder
  */
 
 /**
- * 遍历 Cursor 并转换成对应的实体 DayForecastTable 集合
+ * 遍历 Cursor 并转换成集合
  */
 fun <T : Any> SelectQueryBuilder.parseList(parser: (Map<String, Any?>) -> T): List<T> =
         // parseList() 会遍历 Cursor，每一行都生成一个 map，map 的 key-value 就是每一列的名称和值
@@ -23,8 +23,8 @@ fun <T : Any> SelectQueryBuilder.parseList(parser: (Map<String, Any?>) -> T): Li
         })
 
 /**
- * 遍历 Cursor 并转换成对应的实体 CityForecast 集合
- * parseOpt 和 parseList 的区别在于前者可以返回 null
+ * 单一数据
+ * parseOpt 和 parseList 的区别在于前者可以返回 null，否则返回一个 list
  */
 fun <T : Any> SelectQueryBuilder.parseOpt(parser: (Map<String, Any?>) -> T): T? =
         parseOpt(object : MapRowParser<T> {

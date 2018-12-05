@@ -27,6 +27,14 @@ class ForecastProvider(private val sources: List<ForecastDataSource> = ForecastP
     }
 
     /**
+     * 请求数据
+     */
+    fun requestDayForecast(id: Long) = sources.firstResult {
+        // 此处的 it 只能是 ForecastDb 或 ForecastServer
+        it.requestDayForecast(id)
+    }
+
+    /**
      * 查询数据
      */
     private fun requestSource(source: ForecastDataSource, zipCode: Long, days: Int): ForecastList? {

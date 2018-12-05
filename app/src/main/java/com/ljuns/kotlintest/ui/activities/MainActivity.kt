@@ -9,6 +9,7 @@ import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.ui.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.async
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
                 // 使用匿名内部类
                 adapter.setOnItemClickListener(object : ForecastListAdapter.OnItemClickListener {
                     override fun onItemClick(position: Int, forecast: Forecast) {
-                        toast("position = $position, date = ${forecast.date}")
+                        startActivity<DetailActivity>(DetailActivity.ID to forecast.id,
+                            DetailActivity.CITY_NAME to result.city)
                     }
                 })
 

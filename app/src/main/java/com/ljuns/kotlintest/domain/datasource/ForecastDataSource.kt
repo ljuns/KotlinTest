@@ -1,5 +1,6 @@
 package com.ljuns.kotlintest.domain.datasource
 
+import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.domain.model.ForecastList
 
 /**
@@ -10,4 +11,6 @@ import com.ljuns.kotlintest.domain.model.ForecastList
 
 interface ForecastDataSource {
     fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList?
+
+    fun requestDayForecast(id: Long): Forecast?
 }

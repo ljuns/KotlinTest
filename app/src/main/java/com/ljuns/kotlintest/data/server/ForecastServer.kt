@@ -2,6 +2,7 @@ package com.ljuns.kotlintest.data.server
 
 import com.ljuns.kotlintest.data.db.ForecastDb
 import com.ljuns.kotlintest.domain.datasource.ForecastDataSource
+import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.domain.model.ForecastList
 
 /**
@@ -16,6 +17,14 @@ import com.ljuns.kotlintest.domain.model.ForecastList
 class ForecastServer(private val dataMapper: ServerDataMapper = ServerDataMapper(),
                      private val forecastDb: ForecastDb = ForecastDb()) : ForecastDataSource {
 
+    /**
+     * 该请求只查询数据库
+     */
+    override fun requestDayForecast(id: Long): Forecast? = throw UnsupportedOperationException()
+
+    /**
+     * 根据 zipCode 和 date 请求网络
+     */
     override fun requestForecastByZipCode(zipCode: Long, date: Long): ForecastList? {
         // 网络请求
         val result = ForecastByZipCodeRequest(zipCode.toString()).execute()

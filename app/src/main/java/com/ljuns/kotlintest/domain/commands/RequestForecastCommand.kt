@@ -6,7 +6,7 @@ import com.ljuns.kotlintest.domain.model.ForecastList
 /**
  * Created by ljuns at 2018/11/29.
  * I am just a developer.
- * 介于 Activity 与网络层，可复用
+ * 介于 Activity 与请求层
  */
 
 class RequestForecastCommand(private val zipCode: Long,
