@@ -8,7 +8,7 @@ import com.ljuns.kotlintest.extensions.NotNullSingleValueVar
  * I am just a developer.
  */
 
-class APP : Application() {
+class App : Application() {
 
     companion object {
         // 调用 instance 对应的 get()、set() 方法时会调用 NotNullSingleValueVar 类中对应的 getValue()、setValue()

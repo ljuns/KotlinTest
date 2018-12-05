@@ -2,7 +2,7 @@ package com.ljuns.kotlintest.data.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.ljuns.kotlintest.ui.APP
+import com.ljuns.kotlintest.ui.App
 import org.jetbrains.anko.db.*
 
 /**
@@ -11,7 +11,7 @@ import org.jetbrains.anko.db.*
  * 数据库管理（创建、升级）
  */
 
-class ForecastDbHelper(ctx: Context = APP.instance) :
+class ForecastDbHelper(ctx: Context = App.instance) :
     ManagedSQLiteOpenHelper(ctx, ForecastDbHelper.DB_NAME, null, ForecastDbHelper.DB_VERSION) {
 
     /**

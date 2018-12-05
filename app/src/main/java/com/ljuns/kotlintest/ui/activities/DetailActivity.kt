@@ -3,9 +3,9 @@ package com.ljuns.kotlintest.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.ljuns.kotlintest.R
 import com.ljuns.kotlintest.domain.commands.RequestDayForecastCommand
-import com.ljuns.kotlintest.domain.datasource.ForecastProvider
 import com.ljuns.kotlintest.domain.model.Forecast
 import com.ljuns.kotlintest.extensions.color
 import com.ljuns.kotlintest.extensions.textColor
@@ -22,7 +22,8 @@ import java.text.DateFormat
  * 天气详情
  */
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), ToolbarManager {
+    override val toolbar: Toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
 
     companion object {
         val ID = "DetailActivity:id"
@@ -33,7 +34,9 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        title = intent.getStringExtra(CITY_NAME)
+        initToolbar()
+        toolbarTitle = intent.getStringExtra(CITY_NAME)
+        enableHomeAsUp { onBackPressed() }
 
         async {
             // 根据 ID 请求数据
