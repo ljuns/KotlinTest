@@ -17,6 +17,7 @@ import org.jetbrains.anko.uiThread
  * Created by ljuns at 2018/11/30.
  * I am just a developer.
  */
+
 class MainActivity : AppCompatActivity(), ToolbarManager {
     override val toolbar: Toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
 
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
         initToolbar()
         attachToScroll(forecastList)
 

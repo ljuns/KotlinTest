@@ -50,11 +50,10 @@ interface ToolbarManager {
     }
 
     /**
-     * 返回图标
+     * apply 和 with 类似，但是 apply 会返回调用者
      */
-    private fun createUpDrawable() = with(DrawerArrowDrawable(toolbar.context)) {
+    private fun createUpDrawable() = DrawerArrowDrawable(toolbar.context).apply {
         progress = 1f
-        this
     }
 
     /**

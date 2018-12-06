@@ -27,7 +27,8 @@ class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelp
             .whereSimple("_id = ?", id.toString())
             .parseOpt{ DayForecast(HashMap(it)) }
 
-        if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
+        // 等价于 if (forecast != null) dataMapper.convertDayToDomain(forecast) else null
+        forecast?.let { dataMapper.convertDayToDomain(forecast) }
     }
 
     /**
@@ -48,7 +49,8 @@ class ForecastDb(private val forecastDbHelper: ForecastDbHelper = ForecastDbHelp
             .whereSimple("${CityForecastTable.ID} = ?", zipCode.toString())
             .parseOpt { CityForecast(HashMap(it), dailyForecast) }
 
-        if (city != null) dataMapper.convertToDomain(city) else null
+        // 等价于 if (city != null) dataMapper.convertToDomain(city) else null
+        city?.let { dataMapper.convertToDomain(city) }
     }
 
     /**
