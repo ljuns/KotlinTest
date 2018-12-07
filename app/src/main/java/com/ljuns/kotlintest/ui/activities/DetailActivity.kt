@@ -34,7 +34,6 @@ class DetailActivity : AppCompatActivity(), ToolbarManager {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        initToolbar()
         toolbarTitle = intent.getStringExtra(CITY_NAME)
         enableHomeAsUp { onBackPressed() }
 
@@ -70,10 +69,12 @@ class DetailActivity : AppCompatActivity(), ToolbarManager {
         it.second.text = "${it.first}º"
 
         // 不同的温度显示不同的颜色
-        it.second.textColor = color(when(it.first){
-            in -50..0 -> android.R.color.holo_red_dark
-            in 0..15 -> android.R.color.holo_orange_dark
-            else -> android.R.color.holo_green_dark
-        })
+        it.second.textColor = color(
+            when (it.first) {
+                in -50..0 -> android.R.color.holo_red_dark
+                in 0..15 -> android.R.color.holo_orange_dark
+                else -> android.R.color.holo_green_dark
+            }
+        )
     }
 }

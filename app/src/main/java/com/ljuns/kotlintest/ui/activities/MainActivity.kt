@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ljuns.kotlintest.R
 import com.ljuns.kotlintest.domain.commands.RequestForecastCommand
 import com.ljuns.kotlintest.domain.model.Forecast
+import com.ljuns.kotlintest.extensions.DelegatesExt
 import com.ljuns.kotlintest.ui.adapters.ForecastListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.async
@@ -20,6 +21,7 @@ import org.jetbrains.anko.uiThread
 
 class MainActivity : AppCompatActivity(), ToolbarManager {
     override val toolbar: Toolbar by lazy { findViewById<Toolbar>(R.id.toolbar) }
+    var zipCode by DelegatesExt.longPreference(this, SettingsActivity.ZIP_CODE, SettingsActivity.DEFAULT_ZIP)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +32,20 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
 
         // 设置 LayoutManager
         forecastList.layoutManager = LinearLayoutManager(this)
+    }
 
-        /**
-         * 异步
-         */
+    override fun onResume() {
+        super.onResume()
+        loadForecast()
+    }
+
+    /**
+     * 加载
+     */
+    private fun loadForecast() {
+        // 异步
         async {
-            val result = RequestForecastCommand(94043).execute()
+            val result = RequestForecastCommand(zipCode).execute()
             // 切换到 UI 线程
             uiThread {
                 val adapter = ForecastListAdapter(result)
@@ -47,8 +57,10 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
                 // 使用匿名内部类
                 adapter.setOnItemClickListener(object : ForecastListAdapter.OnItemClickListener {
                     override fun onItemClick(position: Int, forecast: Forecast) {
-                        startActivity<DetailActivity>(DetailActivity.ID to forecast.id,
-                            DetailActivity.CITY_NAME to result.city)
+                        startActivity<DetailActivity>(
+                            DetailActivity.ID to forecast.id,
+                            DetailActivity.CITY_NAME to result.city
+                        )
                     }
                 })
 

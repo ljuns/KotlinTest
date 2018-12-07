@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.ljuns.kotlintest.R
 import com.ljuns.kotlintest.ui.App
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 /**
@@ -31,7 +32,7 @@ interface ToolbarManager {
         toolbar.inflateMenu(R.menu.menu_main)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_settings -> App.instance.toast("Setting")
+                R.id.action_settings -> App.instance.startActivity<SettingsActivity>()
                 else -> App.instance.toast("Unknown option")
 
             }
